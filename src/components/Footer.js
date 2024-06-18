@@ -1,19 +1,26 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
+const Footer = () => {
+  const menus = [
+    { route: "/", text: "Home" },
+    { route: "/whoweare", text: "Quienes Somos" },
+    { route: "/contact", text: "Contacto" },
+    { route: "/login", text: "Iniciar Sesión" },
+  ];
 
-const Footer = () => {return(
-    <footer className='flexAround'>
-        <Link to="/"><img src='/logo192.png' alt='logo'/></Link>
-        <nav>
-            <ul className='menu'>
-                <li><Link to='/contacto'>Contactanos</Link></li>
-                <li><Link to='/help'>Ayuda</Link></li>
-                <li><Link to='/Weare'>Sobre nosotros</Link></li>
-                <li><Link to='/location'>Ubicación</Link></li>
-            </ul>
-        </nav>
+  return (
+    <footer>
+      <div className="menu-footer">
+        {menus.map((menu) => (
+          <li className="lista">
+            <Link to={menu.route}>{menu.text}</Link>
+          </li>
+        ))}
+        <li className='lista'><a href="https://www.instagram.com/tati.cocinerita">Instagram</a></li>
+      </div>
     </footer>
-)}
+  );
+};
 
 export default Footer;

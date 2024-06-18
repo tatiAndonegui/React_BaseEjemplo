@@ -1,27 +1,10 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-// Crear un Contexto de Sesión
+import React, { createContext, useState, useContext } from 'react';
+
 export const SessionContext = createContext();
-// Crear un Proveedor de Sesión para envolver tu aplicación
 export const SessionProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState({});
-    useEffect(() => {
-        const checkToken = async () => {
-            try {
-                const response = await axios.get('http://localhost:3069/api/checkToken', { withCredentials: true });
-                if (response.status === 200) {
-                    setIsLoggedIn(true);
-                    setUser(response.data);
-                } else {
-                    setIsLoggedIn(false);
-                }
-            } catch (error) {
-                setIsLoggedIn(false);
-            }
-        };
-        checkToken();
-    }, []);
+
     return (
         <SessionContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
             {children}

@@ -1,106 +1,44 @@
 
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSession } from '../hooks/SessionContext';
+import { Button, Form } from 'react-bootstrap'
 
-// Formulario de inicio de sesión
-export function LoginForm() {
-    const  {setUser,isLoggedIn, setIsLoggedIn}  = useSession();
-    const [userL, setUserL] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
+const LoginPage = () => {
+  const  { setUser, setIsLoggedIn }  = useSession();
+  const navigate = useNavigate();
+  const LoginUser = () => {
+    // TODO: API CALL a node y BD
+    setIsLoggedIn(true)
+    setUser({})
+    navigate('/logged');
+  }
 
-    const handleSubmit = async event => {
-        event.preventDefault();
-        try {
-             const response =await axios.post('http://localhost:3069/api/login', { user:userL, password },{withCredentials:true});
-             if(response.status===200){
-                setIsLoggedIn(true)
-                navigate('/');
-               setUser(response.data)
-            }
-             
-        } catch (err) {
-            setError('Verifique los datos ingresados');
-        }
-    };
-    if (isLoggedIn) {
-        return <Link to="/" />;
-      }
-    return (
-        <form onSubmit={handleSubmit}>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <label>
-                Usuario:
-                <input type="text" value={userL} onChange={e => setUserL(e.target.value)} required />
-            </label>
-            <label>
-                Password:
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-            </label>
-            <button type="submit">Iniciar sesión</button>
-        </form>
-    );
-}
+  return (
+    <>
+      <Form className="formulario">
+        <h1>Inicia Sesión</h1>
 
-// Formulario de registro
-export function RegisterForm() {
+        <Form.Group class="mb-3">
+          <Form.Label for="email">Email</Form.Label>
+          <Form.Control type="email" placeholder="ingresa tu email" name="email" />
+        </Form.Group>
 
-    const  {isLoggedIn, /* setIsLoggedIn */}  = useSession();
-    const [email, setEmail] = useState('');
-    const [user, setUser] = useState('');
-    const [nombre, setNombre] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
+        <Form.Group class="mb-3">
+          <Form.Label for="clave">Contraseña</Form.Label>
+          <Form.Control type="password" placeholder="ingresa tu clave" name="clave" />
+        </Form.Group>
+        <div>
+          <Link to="/register">¿No tenes cuenta? Registrate</Link>  
+        </div>
+        <div>
+         <Button variant="primary" type="button" onClick={LoginUser}>
+            Entrar!
+         </Button>
+        </div>
+      </Form>
+    </>
+  );
+};
 
-    const handleSubmit = async event => {
-        event.preventDefault();
-        try {
-             const response = await  axios.post('http://localhost:3069/api/register', { user,nombre,email, password },{withCredentials:true});
-            if(response.status===200){
-                console.log('registrado')
-                navigate('/');
-            }
-            
-        } catch (err) {
-            setError('Intente con otro Usuario/Mail');
-        }
-    };
-    if (isLoggedIn) {
-        return <Link to="/" />;
-      }
-    return (
-        <form onSubmit={handleSubmit} className='flexForm'>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <div>
-            <label>
-                Usuario:
-                <input type="text" value={user} onChange={e => setUser(e.target.value)} required />
-            </label>
-            </div>
-            <div>
-            <label>
-
-                Nombre/s:
-                <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} required />
-            </label>
-            </div>
-            <div>
-            <label>
-                Email:
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-            </label>
-            </div>
-            <div>
-            <label>
-                Password:
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-            </label>
-            </div>
-            <button type="submit">Registrarse</button>
-        </form>
-    );
-}
+export default LoginPage
