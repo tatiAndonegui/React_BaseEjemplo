@@ -5,22 +5,23 @@ import { useSession } from '../hooks/SessionContext';
 import { Button } from 'react-bootstrap'
 
 const Logged = () => {
-  const  { isLoggedIn }  = useSession();
+  const  { isLoggedIn, logout }  = useSession();
   const navigate = useNavigate();
 
-  const logout = () => {
-    //Todo terminar 
+  const handlerClick = () => {
+    navigate('/');
+    logout();
   }
 
   if (!isLoggedIn) {
-    navigate('login');
-    return;
+    navigate('/login');
+    return null
   }
  
   return (
    <>
     <h1>Bienvenido</h1>
-    <Button className="mb-4" type='button' onClick={logout}>Desloguearse</Button>
+    <Button className="mb-4" type='button' onClick={handlerClick}>Desloguearse</Button>
    </>
   );
 };

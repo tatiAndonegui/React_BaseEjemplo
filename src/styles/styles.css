@@ -183,3 +183,10 @@ font-family: 'Open Sans', sans-serif;
     font-family: 'Open Sans', sans-serif;
 }
 
+.receta-loading {
+    display: flex;
+    width: 100%;
+    position: relative;
+    justify-content: center;
+    margin-bottom: 1em;
+}

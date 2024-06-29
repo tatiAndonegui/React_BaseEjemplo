@@ -7,17 +7,15 @@ import axios from 'axios';
 import { useSession } from '../hooks/SessionContext';
 import { API_BASE } from '../constants';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const  { setUser, setIsLoggedIn }  = useSession();
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   
   const navigate = useNavigate();
-  const LoginUser = () => {
-    axios.post(`${API_BASE}/auth/login`, formData).then((userData) => {
-      setIsLoggedIn(true);
-      setUser(userData?.data);
-      navigate('/logged');
+  const createUser = () => {
+    axios.post(`${API_BASE}/auth/register`, formData).then(() => {
+      navigate('/login');
     }).catch((error) => {
       setError(error?.response?.data);
     })
@@ -36,8 +34,16 @@ const LoginPage = () => {
         {error && <Alert key="login-error" variant="danger" onClose={() => setError(null)} dismissible>
           {error}
         </Alert>}
-        <h1>Inicia Sesión</h1>
+        <h1>Registrate</h1>
 
+        <Form.Group class="mb-3">
+          <Form.Label for="name">Nombre</Form.Label>
+          <Form.Control placeholder="ingresa tu nombre" onChange={handlerChange} name="name" />
+        </Form.Group>
+        <Form.Group class="mb-3">
+          <Form.Label for="name">Apellido</Form.Label>
+          <Form.Control placeholder="ingresa tu apellido" onChange={handlerChange} name="lastName" />
+        </Form.Group>
         <Form.Group class="mb-3">
           <Form.Label for="email">Email</Form.Label>
           <Form.Control type="email" placeholder="ingresa tu email" onChange={handlerChange} name="email" />
@@ -48,10 +54,10 @@ const LoginPage = () => {
           <Form.Control type="password" placeholder="ingresa tu clave" onChange={handlerChange} name="password" />
         </Form.Group>
         <div>
-          <Link to="/register">¿No tenes cuenta? Registrate</Link>  
+          <Link to="/login">¿Ya tienes cuenta? Inicia Sesión</Link>  
         </div>
         <div>
-         <Button variant="primary" type="button" onClick={LoginUser}>
+         <Button variant="primary" type="button" onClick={createUser}>
             Entrar!
          </Button>
         </div>
@@ -60,4 +66,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage
+export default RegisterPage
