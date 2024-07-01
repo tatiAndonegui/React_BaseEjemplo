@@ -14,6 +14,7 @@ import WhoWeAre from './views/WhoWeAre';
 import Contact from './views/Contact';
 import Admin from './views/Admin';
 import Recipies from './views/Recipies';
+import RecipieEdit from './views/RecipieEdit';
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
           <Route path="/contact" element={<Contact />} /> 
           <Route path="/admin" element={<Admin />} /> 
           <Route path="/recipies" element={<Recipies />} /> 
+          <Route path="/recipe/edit" element={<RecipieEdit />} /> 
+          <Route path="/recipe/new" element={<RecipieEdit />} /> 
           {/* <Route path="/" element={<Inicio />} exact />
           <Route path="/productos/" element={<Productos />} exact />
           <Route path="/productos/:id" element={<Producto />} />

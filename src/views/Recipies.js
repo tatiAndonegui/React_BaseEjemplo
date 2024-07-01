@@ -1,13 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Table, Spinner, Alert } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { Table, Spinner, Alert, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { useSession } from '../hooks/SessionContext';
 import { API_BASE } from '../constants';
 
 const RecepiesPage = () => {
-  const  { userInfo }  = useSession();
+  const navigate = useNavigate();
   const [recepies, setRecepies] = useState(null); 
   const [error, setError] = useState(null);
   
@@ -29,6 +28,10 @@ const RecepiesPage = () => {
       })
   };
 
+  const createNew = () => {
+    navigate("/recipe/new");
+  }
+
   return (
     <div>
         {error && <Alert key="login-error" variant="danger" onClose={() => setError(null)} dismissible>
@@ -36,6 +39,7 @@ const RecepiesPage = () => {
         </Alert>}
         <h1>Recetas - ABM </h1>
         <caption className='d-flex'>Receta ABM</caption>
+        <Button variant="primary" type="button" onClick={createNew}>Crear nueva</Button>
         {!recepies && <div className='receta-loading'>
             <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
