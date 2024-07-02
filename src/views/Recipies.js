@@ -23,7 +23,6 @@ const RecepiesPage = () => {
     axios.delete(`${API_BASE}/recipies?id=${recipe.idReceta}`).then((recepies) => {
         setRecepies(recepies?.data?.result)
       }).catch((error) => {
-        setRecepies([])
         setError(error?.response?.data);
       })
   };

@@ -3,13 +3,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button, Form, Alert, Spinner } from "react-bootstrap";
 import axios from "axios";
 
-import { useSession } from "../hooks/SessionContext";
 import { API_BASE } from "../constants";
 
 const RecipeEditPage = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
-  const { setUser, setIsLoggedIn } = useSession();
   const [formData, setFormData] = useState(id ? null : {});
   const [ingredients, setIngredients] = useState(id ? null :[] );
   const [error, setError] = useState(null);

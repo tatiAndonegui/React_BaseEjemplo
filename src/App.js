@@ -33,11 +33,6 @@ function App() {
           <Route path="/recipies" element={<Recipies />} /> 
           <Route path="/recipe/edit" element={<RecipieEdit />} /> 
           <Route path="/recipe/new" element={<RecipieEdit />} /> 
-          {/* <Route path="/" element={<Inicio />} exact />
-          <Route path="/productos/" element={<Productos />} exact />
-          <Route path="/productos/:id" element={<Producto />} />
-          <Route path="/registro/" element={<RegisterForm />} /> 
-          <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </main>
       <Footer />
